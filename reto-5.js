@@ -4,39 +4,36 @@
 
 function cyberReindeer(road, time) {
   
-    road = road.split("")
-    let initialTime = time
-    let result = []
-    let position = 0
+  let result = [road]
+  road = road.split("")
+  let initialTime = time
+  let position = 0
+  let replacedChar = "."
+
+  while(time > 1){
     
-    let replacedChar = "."
-  
-    while(time > 0){
-      
-      if(time === initialTime){
-        result.push(road.join(""))
-        time--
-        continue
-      }
-      if(time === initialTime - 5){
-        road = road.join("").replaceAll("|", "*").split("")
-      }
-      let nextPosition = position+1
-      if(road[nextPosition] === "|"){
-          result.push(road.join(""))
-          time--
-          continue
-      }
-      
-      let savedChar = road[nextPosition]
-      road[nextPosition] = "S"
-      road[position] = replacedChar
-      replacedChar = savedChar 
-      result.push(road.join(""))
-  
-      position++
-      time -= 1
+    let nextPosition = position+1
+
+    if(time === initialTime - 4){
+      road = road.join("").replaceAll("|", "*").split("")
     }
-  
-    return result
+    
+
+    if(road[nextPosition] === "|"){
+      result.push(road.join(""))
+      time--
+      continue
+    }
+
+    let savedChar = road[nextPosition]
+    road[nextPosition] = "S"
+    road[position] = replacedChar
+    replacedChar = savedChar 
+    result.push(road.join(""))
+
+    position++
+    time--
+  }
+
+  return result
 }
